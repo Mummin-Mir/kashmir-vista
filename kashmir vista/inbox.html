@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KashmirVista — From Kashmir to the World</title>
+  <meta name="description" content="KashmirVista — marketplace for Kashmiri artisans, saffron, pashmina, travel & hospitality" />
+
+  <!-- Minimal styles, green-themed design system -->
+  <style>
+    :root{
+      --bg:#f6fbf7;
+      --card:#ffffff;
+      --accent:#116530; /* deep green */
+      --accent-2:#2fa46f; /* lighter green */
+      --muted:#6b7280;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      --radius:16px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eef7ef);color:#0f172a}
+    a{color:inherit}
+
+    /* Layout */
+    .container{max-width:1200px;margin:0 auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .brand-mark{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;color:white;font-weight:700}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{padding:8px 12px;border-radius:10px;font-weight:600}
+    nav a.cta{background:var(--accent);color:#fff}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;margin:32px 0}
+    .hero-card{background:var(--card);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+    .eyebrow{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
+    h1{margin:12px 0 8px;font-size:28px;line-height:1.02}
+    p.lead{color:var(--muted);margin:16px 0;font-size:15px}
+    .hero-cta{display:flex;gap:12px;margin-top:18px}
+    button.btn{border:0;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(17,101,48,0.08)}
+
+    /* Product sample */
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .product{background:linear-gradient(180deg,#fff, #f8fff8);border-radius:14px;padding:14px;box-shadow:0 4px 12px rgba(10,20,10,0.04);display:flex;flex-direction:column;gap:10px}
+    .prod-img{height:150px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,#eefaf0,#ffffff)}
+    .price-row{display:flex;justify-content:space-between;align-items:center}
+    .tag{font-size:13px;color:var(--muted);background:#f1faf4;padding:6px 8px;border-radius:8px}
+
+    /* Sections */
+    section{margin:48px 0}
+    .grid-2{display:grid;grid-template-columns:1fr 360px;gap:24px}
+
+    /* Vendor cards */
+    .vendor{display:flex;gap:12px;align-items:center;background:var(--card);padding:12px;border-radius:12px}
+    .avatar{width:64px;height:64px;border-radius:10px;background:#fff;box-shadow:var(--shadow);display:grid;place-items:center;font-weight:700}
+
+    /* Footer */
+    footer{margin-top:40px;padding:32px 0;border-top:1px solid rgba(15,23,42,0.04)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .grid-2{grid-template-columns:1fr}
+    }
+
+    /* Micro interactions */
+    .card:hover{transform:translateY(-6px);transition:transform .2s}
+
+    /* Cart modal */
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;top:-10px;right:-10px;background:#f97316;color:white;border-radius:999px;padding:4px 8px;font-size:12px}
+    .modal{position:fixed;right:20px;bottom:20px;background:var(--card);padding:12px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.12);min-width:300px}
+
+    /* Search */
+    .search{display:flex;gap:8px;align-items:center;background:#fff;padding:8px;border-radius:12px;box-shadow:var(--shadow)}
+    input[type="search"]{border:0;outline:none;font-size:14px}
+
+    /* badges */
+    .pill{padding:6px 10px;border-radius:999px;background:#ecfdf3;color:var(--accent-2);font-weight:700}
+
+    /* tiny footer links */
+    .tiny{font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="brand-mark">KV</div>
+        <div>
+          <div style="font-weight:800">KashmirVista</div>
+          <div class="tiny">From the heart of Kashmir to the hands of the world</div>
+        </div>
+      </div>
+      <nav>
+        <div class="search" role="search" aria-label="Search products">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input type="search" id="search" placeholder="Search saffron, pashmina, crafts, stays..." />
+        </div>
+        <a href="#categories">Categories</a>
+        <a href="#vendors">Vendors</a>
+        <a class="cta" href="#getstarted">Get Started</a>
+        <button class="btn cart-btn" id="openCart" aria-label="Open cart">Cart <span id="cartCount" class="cart-count" style="display:none">0</span></button>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-card">
+        <span class="eyebrow">💫 Made in Kashmir</span>
+        <h1>KashmirVista — a digital revolution uniting Kashmir’s culture, commerce & creativity.</h1>
+        <p class="lead">From saffron growers to Pashmina weavers, local artisans to valley hoteliers — KashmirVista showcases authenticity and connects creators to customers worldwide. Every purchase supports a craftsman; every booking strengthens a dream.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Shop Local</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('vendors').scrollIntoView({behavior:'smooth'})">Meet Vendors</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <div class="pill">Saffron & Spices</div>
+          <div class="pill">Pashmina & Shawls</div>
+          <div class="pill">Handicrafts</div>
+          <div class="pill">Stays & Tours</div>
+        </div>
+
+        <div style="margin-top:18px;color:var(--muted);font-size:13px">Verified vendors • Secure payments • Global shipping</div>
+      </div>
+
+      <!-- Quick showcase / featured product -->
+      <aside>
+        <div class="hero-card">
+          <strong>Featured artisan</strong>
+          <div style="margin-top:12px" class="vendor">
+            <div class="avatar">SR</div>
+            <div>
+              <div style="font-weight:800">Sana\'s Pashmina Studio</div>
+              <div class="tiny">Srinagar • 20 years weaving tradition</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <div style="font-weight:700">Premium Pashmina Shawl</div>
+            <div class="tag" style="display:inline-block;margin-top:8px">Handwoven • Natural dyes</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+              <div>
+                <div style="font-size:18px;font-weight:800">₹9,499</div>
+                <div class="tiny">Free shipping in India</div>
+              </div>
+              <button class="btn btn-primary" onclick="addToCart({id:'pash1',name:'Premium Pashmina Shawl',price:9499})">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card" style="margin-top:12px">
+          <strong>Plan your trip</strong>
+          <p class="tiny" style="margin:8px 0">Find valley stays, guided tours, and authentic homestays listed by local hosts.</p>
+          <a href="#tours" class="tiny">Explore stays →</a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- CATEGORIES + PRODUCTS -->
+    <section id="catalog">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="margin:0">Featured products</h2>
+        <a href="#" class="tiny">Browse all products</a>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- product cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- Two-column: Story + Vendors -->
+    <section class="grid-2">
+      <div>
+        <div style="background:var(--card);padding:20px;border-radius:14px;box-shadow:var(--shadow)">
+          <h3>Our mission</h3>
+          <p class="tiny">KashmirVista is a movement to digitize culture, empower people, and redefine Kashmir's presence in the global economy. We help small producers reach international customers, provide trust and logistics support, and celebrate craft authenticity.</p>
+
+          <ul style="margin-top:12px;color:var(--muted)">
+            <li>Fair-trade pricing for artisans</li>
+            <li>Secure payments & seller verification</li>
+            <li>Logistics & export assistance</li>
+          </ul>
+
+          <div style="margin-top:12px">
+            <button class="btn btn-primary" onclick="openOnboard()">Become a Seller</button>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+          <div style="background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow)">
+            <strong>Local sourcing</strong>
+            <div class="tiny">Direct from growers & workshops</div>
+          </div>
+          <div style="background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow)">
+            <strong>Sustainable</strong>
+            <div class="tiny">Eco-friendly packaging options</div>
+          </div>
+        </div>
+      </div>
+
+      <aside id="vendors">
+        <h3>Trusted vendors</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+          <div class="vendor">
+            <div class="avatar">SG</div>
+            <div>
+              <div style="font-weight:800">Saffron Growers Co-op</div>
+              <div class="tiny">Hand-harvested Kashmiri saffron</div>
+            </div>
+          </div>
+
+          <div class="vendor">
+            <div class="avatar">HP</div>
+            <div>
+              <div style="font-weight:800">Haat-e-Pashmina</div>
+              <div class="tiny">Traditional looms, certified quality</div>
+            </div>
+          </div>
+
+          <div class="vendor">
+            <div class="avatar">TA</div>
+            <div>
+              <div style="font-weight:800">Trek & Aru Tours</div>
+              <div class="tiny">Guided valley experiences</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- How it works -->
+    <section>
+      <h3>How KashmirVista works</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px">
+        <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+          <strong>1. Discover</strong>
+          <div class="tiny">Browse verified local products & stays.</div>
+        </div>
+        <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+          <strong>2. Buy / Book</strong>
+          <div class="tiny">Secure checkout and flexible shipping.</div>
+        </div>
+        <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+          <strong>3. Support</strong>
+          <div class="tiny">Direct benefits reach the artisans.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter + CTA -->
+    <section id="getstarted">
+      <div style="background:linear-gradient(90deg, rgba(17,101,48,0.06), rgba(47,164,111,0.03));padding:18px;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <h3 style="margin:0">Join the movement</h3>
+          <div class="tiny">Sign up for stories, new arrivals, and artisan spotlights.</div>
+        </div>
+        <form onsubmit="event.preventDefault();subscribe()" style="display:flex;gap:8px;align-items:center">
+          <input id="email" placeholder="Your email" style="padding:10px;border-radius:10px;border:1px solid rgba(10,20,10,0.04)" />
+          <button class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:800">KashmirVista</div>
+          <div class="tiny">Digitizing culture, empowering creators.</div>
+        </div>
+        <div class="tiny">© KashmirVista 2025 • Terms • Privacy • Contact</div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Cart modal template -->
+  <template id="cartTpl">
+    <div class="modal" id="cartModal">
+      <strong>Cart</strong>
+      <div id="cartItems" style="margin-top:10px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div class="tiny">Total:</div>
+        <div id="cartTotal" style="font-weight:800">₹0</div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn btn-primary" onclick="checkout()">Checkout</button>
+        <button class="btn btn-ghost" onclick="closeCart()">Close</button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // Sample product data — replace with backend / API later
+    const products = [
+      {id:'saf1',name:'Premium Kesar (1g)',price:599,cat:'Saffron',vendor:'Saffron Growers Co-op',img:''},
+      {id:'pash1',name:'Premium Pashmina Shawl',price:9499,cat:'Pashmina',vendor:"Sana's Pashmina Studio",img:''},
+      {id:'craft1',name:'Hand-carved Walnut Box',price:1299,cat:'Handicraft',vendor:'Local Woodworks',img:''},
+      {id:'tea1',name:'Kahwa Spice Pack',price:299,cat:'Spices',vendor:'Kashmir Kitchen',img:''},
+      {id:'stay1',name:'Aru Valley Homestay (2 nights)',price:7999,cat:'Stays',vendor:'Aru Homestays',img:''}
+    ];
+
+    // Simple cart in local memory
+    let cart = {};
+    function renderProducts(list = products){
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'product card';
+        card.innerHTML = `
+          <div class="prod-img"><div style="text-align:center"><strong style="font-size:15px">${p.name}</strong></div></div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700">${p.name}</div>
+              <div class="tag">${p.cat}</div>
+            </div>
+            <div style="margin-top:6px;color:var(--muted);font-size:13px">${p.vendor}</div>
+          </div>
+          <div class="price-row">
+            <div style="font-weight:800">₹${p.price.toLocaleString('en-IN')}</div>
+            <div>
+              <button class="btn btn-ghost" onclick='viewDetails("${p.id}")'>View</button>
+              <button class="btn btn-primary" onclick='addToCart(${JSON.stringify(p)})'>Add</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function addToCart(item){
+      const id = item.id;
+      if(cart[id]) cart[id].qty += 1;
+      else cart[id] = {...item, qty:1};
+      updateCartCount();
+      showMiniToast(`${item.name} added to cart`);
+    }
+
+    function updateCartCount(){
+      const count = Object.values(cart).reduce((s,i)=>s+i.qty,0);
+      const badge = document.getElementById('cartCount');
+      if(count>0){badge.style.display='inline-block';badge.textContent=count;} else badge.style.display='none';
+    }
+
+    function openCart(){
+      if(document.getElementById('cartModal')) return;
+      const tpl = document.getElementById('cartTpl');
+      document.body.appendChild(tpl.content.cloneNode(true));
+      renderCartItems();
+    }
+    function closeCart(){
+      const m = document.getElementById('cartModal');
+      if(m) m.remove();
+    }
+    function renderCartItems(){
+      const container = document.getElementById('cartItems');
+      container.innerHTML = '';
+      const items = Object.values(cart);
+      if(items.length===0) container.innerHTML = '<div class="tiny">Cart empty</div>';
+      items.forEach(it=>{
+        const row = document.createElement('div');
+        row.style.display='flex';row.style.justifyContent='space-between';row.style.alignItems='center';row.style.marginTop='8px';
+        row.innerHTML = `<div style="max-width:70%"><div style="font-weight:700">${it.name}</div><div class="tiny">₹${it.price} × ${it.qty}</div></div><div style="display:flex;gap:6px;align-items:center"><button class="btn btn-ghost" onclick='changeQty("${it.id}",-1)'>-</button><div style="font-weight:800">${it.qty}</div><button class="btn btn-ghost" onclick='changeQty("${it.id}",1)'>+</button></div>`;
+        container.appendChild(row);
+      });
+      const total = items.reduce((s,i)=>s + i.price*i.qty,0);
+      document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+    }
+    function changeQty(id,delta){
+      if(!cart[id]) return;
+      cart[id].qty += delta;
+      if(cart[id].qty<=0) delete cart[id];
+      updateCartCount();
+      renderCartItems();
+    }
+
+    function checkout(){
+      if(Object.keys(cart).length===0){alert('Cart empty');return}
+      // Placeholder: connect to payment gateway / backend
+      alert('Thanks — checkout simulated. Replace with payment integration.');
+      cart = {};
+      updateCartCount();
+      closeCart();
+    }
+
+    function viewDetails(id){
+      const p = products.find(x=>x.id===id);
+      alert(p.name + '\n\nPrice: ₹' + p.price + '\nVendor: ' + p.vendor + '\n\nThis is a demo detail view — implement a modal or product page next.');
+    }
+
+    function openOnboard(){
+      alert('Onboarding flow placeholder — integrate seller signup (KYC, product listing, payouts).');
+    }
+
+    function subscribe(){
+      const email = document.getElementById('email').value;
+      if(!email) return alert('Please enter your email');
+      alert('Thanks! Subscribed: ' + email);
+      document.getElementById('email').value = '';
+    }
+
+    function showMiniToast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg; t.style.position='fixed';t.style.left='50%';t.style.bottom='26px';t.style.transform='translateX(-50%)';t.style.background='rgba(0,0,0,0.8)';t.style.color='white';t.style.padding='10px 14px';t.style.borderRadius='10px';t.style.zIndex=9999;document.body.appendChild(t);
+      setTimeout(()=>t.remove(),1500);
+    }
+
+    document.getElementById('openCart').addEventListener('click', openCart);
+    document.getElementById('search').addEventListener('input', (e)=>{
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = products.filter(p=> p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q));
+      renderProducts(filtered);
+    });
+
+    // initial render
+    renderProducts();
+    updateCartCount();
+  </script>
+</body>
+</html>
